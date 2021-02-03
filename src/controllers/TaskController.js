@@ -38,6 +38,17 @@ module.exports = {
   },
 
   async delete(req, res, next){
+    try {
+      let id = req.params.id;
+      let task = await Task.findByPk(id);
 
+      task.deleted = true;
+
+      await task.save();
+
+      return res.status(200).json({ message: 'Task deleted' });
+    } catch (error) {
+      return res.status(400).json({ message: 'Error: ' + error.message });
+    }
   }
 }
