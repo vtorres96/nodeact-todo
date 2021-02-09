@@ -1,0 +1,30 @@
+{
+  "name": "dh-node-t10-to-do-list",
+  "version": "1.0.0",
+  "description": "Projeto desenvolvido com intuito de criar uma API com Node.js e consumir esta API com React.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vtorres96/dh-node-t10-to-do-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vtorres96/dh-node-t10-to-do-list/issues"
+  },
+  "homepage": "https://github.com/vtorres96/dh-node-t10-to-do-list#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.5.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
