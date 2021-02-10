@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(100deg, rgb(182, 40, 111) 50%, #ac2066 0);
+  height: 100vh;
+  width: 100%;
+}
+
+.app-wrapper {
+  background-color: #292f38;
+  min-width: 450px;
+  height: 600px;
+  border-radius: 5px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 250px;
+}
