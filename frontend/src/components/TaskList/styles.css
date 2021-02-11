@@ -5,3 +5,10 @@
   overflow: hidden;
   overflow-y: auto;
 }
+
+.no-tasks { 
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  color: #bbb;
+}

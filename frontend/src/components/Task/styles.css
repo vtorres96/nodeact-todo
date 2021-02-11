@@ -12,6 +12,7 @@
 .btn-icons {
   color: #bbb;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .btn-icons:first-child {
