@@ -5,14 +5,3 @@
   overflow: hidden;
   overflow-y: auto;
 }
-
-.list-item {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-  padding-bottom: 5px;
-}
-
-.list-item span {
-  color: #999;
-}
