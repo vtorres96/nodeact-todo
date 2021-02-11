@@ -1,0 +1,14 @@
+.list {
+  width: 90%;
+  margin: auto;
+  max-height: 250px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.no-tasks {
+  color: #777;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}
