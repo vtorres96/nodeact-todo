@@ -1,42 +1,66 @@
 import React, { createContext, useState, useEffect } from "react";
-import { v1 as uuidv1 } from 'uuid';
+import api from '../services/api';
 
 export const TaskListContext = createContext();
 
 const TaskListContextProvider = (props) => {
-    const initialState = JSON.parse(localStorage.getItem('tasks')) || []
-    
-    const [tasks, setTasks] = useState(initialState)
-
+    const [tasks, setTasks] = useState([]);
     const [editItem, setEditItem] = useState(null);
 
     useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify(tasks))
-    }, [tasks])
+        async function getItems() {
+            try {
+              const { data } = await api.get("/");
+              setTasks(data);
+            } catch (error) {
+              console.log("Ocorreu um erro ao buscar os itens" + error);
+            }
+        }
+        getItems();
+    }, []);
 
-    const addTask = (description) => {
-        setTasks([...tasks, { description, id: uuidv1() }])
+    const addTask = async (title, description) => {
+        try {
+            let { data } = await api.post("/", {
+                title,
+                description
+            });
+
+            setTasks([...tasks, data ]);
+        } catch (error) {
+            console.log("Ocorreu um erro ao buscar os items" + error);
+        }
     }
 
-    const removeTask = (id) => {
-        setTasks(tasks.filter(task => task.id !== id))
+    const editTask = async (id, title, description) => {
+        let { data } = await api.put(`/${id}`, { title, description });
+        const newTasks = tasks.map(task => task.id === id ? data : task);
+
+        setTasks(newTasks);
+        setEditItem(null);
+    }
+
+    const removeTask = async (id) => {
+        try {
+            await api.delete(`/${id}`);
+
+            setTasks(tasks.filter(task => task.id !== id));
+        } catch (error) {
+            console.log("Ocorreu um erro ao buscar os items" + error);
+        }
     }
 
     const clearList = () => {
-        setTasks([])
+        setTasks([]);
     }
 
-    const findItem = (id) => {
-        const item = tasks.find(task => task.id === id)
-        
-        setEditItem(item)
-    }
-
-    const editTask = (id, description) => {
-        const newTasks = tasks.map(task => task.id === id ? {id, description} : task)
-    
-        setTasks(newTasks)
-        setEditItem(null)
+    const findItem = async (id) => {
+        try {
+            const { data } = await api.get(`/${id}`);
+            setEditItem(data);
+        } catch (error) {
+            console.log("Ocorreu um erro ao buscar os items" + error);
+        }
     }
 
     return (
