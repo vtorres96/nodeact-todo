@@ -1,6 +1,6 @@
 .list-tasks {
   width: 90%;
-  margin: auto;
+  margin: 20px auto;
   max-height: 300px;
   overflow: hidden;
   overflow-y: auto;

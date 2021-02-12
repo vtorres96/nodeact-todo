@@ -1,18 +1,24 @@
+import React, { useEffect, useState } from 'react';
+import api from "../../service/api";
+
 import Task from '../Task';
 
 import './styles.css';
 
 function TaskList(){
-  let tasks = [
-    // {
-    //   "id": 1,
-    //   "description": "Descrição 1"
-    // },
-    // {
-    //   "id": 2,
-    //   "description": "Descrição 2"
-    // }
-  ];
+  const [tasks, setTasks] = useState([]);
+  
+  useEffect(() => {
+    async function getTasks(){
+      try {
+        const { data } = await api.get('/');
+        setTasks(data);
+      } catch (error) {
+        console.log('Ocorreu um erro inesperado' + error);
+      }
+    }
+    getTasks();
+  }, []);
 
   return (
     <div>
@@ -23,7 +29,7 @@ function TaskList(){
           })}
         </ul>
       ) : (
-        <div className="no-tasks">Não existe tarefas</div>
+        <div className="no-tasks">Não existem tarefas</div>
       )}
     </div>
   );
