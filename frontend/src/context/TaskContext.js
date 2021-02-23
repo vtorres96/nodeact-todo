@@ -5,6 +5,7 @@ export const TaskContext = createContext();
 
 const TaskContextProvider = (props) => {
   const [tasks, setTasks] = useState([]);
+  const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
     async function getTasks(){
@@ -36,8 +37,24 @@ const TaskContextProvider = (props) => {
       const tasksFiltered = tasks.filter(task => task.id !== id);
       setTasks(tasksFiltered);
     } catch (error) {
-      console.log('Ocorreu um erro ao excluir o registro' + error);
+      console.log('Ocorreu um erro ao excluir o registro ' + error);
     }
+  }
+
+  const findItem = async (id) => {
+    try {
+      const { data } = await api.get('/' + id);
+      setEditItem(data);
+    } catch (error) {
+      console.log('Ocorreu um erro ao obter o registro ' + error);
+    }
+  }
+
+  const editTask = async (id, title, description) => {
+    const { data } = await api.put('/' + id, { title, description });
+    const newTasks = tasks.map(task => task.id === id ? data : task);
+    setTasks(newTasks);
+    setEditItem(null);
   }
 
   const clearList = () => {
@@ -50,7 +67,10 @@ const TaskContextProvider = (props) => {
         tasks,
         addTask,
         clearList,
-        removeTask
+        removeTask,
+        findItem,
+        editItem,
+        editTask
       }} 
     >
       {props.children}

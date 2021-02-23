@@ -6,14 +6,14 @@ import Delete from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 
 function Task({ task }){
-  const { removeTask } = useContext(TaskContext);
+  const { removeTask, findItem } = useContext(TaskContext);
 
   return (
     <li className="list-item">
       <span>{task.description}</span>
       <div>
         <Delete className="btn-icons" onClick={() => removeTask(task.id)}/>
-        <Edit className="btn-icons"/>
+        <Edit className="btn-icons" onClick={() => findItem(task.id)}/>
       </div>
     </li>
   );

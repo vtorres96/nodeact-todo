@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 
 import './styles.css';
 
 function TaskForm(){
-  const { addTask, clearList } = useContext(TaskContext);
+  const { addTask, clearList, editItem, editTask } = useContext(TaskContext);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -19,7 +19,14 @@ function TaskForm(){
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    addTask(title, description);
+
+    if(editItem){
+      const { id, title, description } = editItem;
+      editTask(id, title, description);
+    } else {
+      addTask(title, description);
+    }
+
     setTitle('');
     setDescription('');
   }
@@ -28,6 +35,13 @@ function TaskForm(){
     event.preventDefault();
     clearList();
   }
+
+  useEffect(() => {
+    if(editItem){
+      setTitle(editItem.title);
+      setDescription(editItem.description);
+    }
+  }, [editItem]);
 
   return (
     <form onSubmit={handleSubmit} className="form">
@@ -50,7 +64,9 @@ function TaskForm(){
       />
 
       <div className="buttons">
-        <button type="submit" className="btn add-task-btn">Adicionar</button>
+        <button type="submit" className="btn add-task-btn">
+          {editItem ? 'Editar' : 'Adicionar'}
+        </button>
         <button className="btn clear-btn" onClick={handleClearList}>Limpar</button>
       </div>
     </form>
