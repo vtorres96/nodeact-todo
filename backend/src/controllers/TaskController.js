@@ -24,6 +24,16 @@ module.exports = {
     }
   },
 
+  async edit(req, res, next){
+    try {
+      let id = req.params.id;
+      let task = await Task.findByPk(id);
+      return res.status(200).json(task);
+    } catch (error) {
+       return res.status(400).json({ message: 'Error: ' + error.message });
+    }
+  },
+
   async update(req, res, next){
     try {
       let id = req.params.id;
