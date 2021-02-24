@@ -9,11 +9,9 @@ module.exports = (sequelize, DataType) => {
     },
     title: {
       type: DataType.STRING,
-      allowNull: false,
     },
     description: {
       type: DataType.STRING,
-      allowNull: false,
     },
     done: DataType.BOOLEAN,
     deleted: DataType.BOOLEAN,

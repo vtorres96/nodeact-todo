@@ -5,7 +5,8 @@ module.exports = {
     try {
       let tasks = await Task.findAll({
         where: {
-          deleted: 0
+          deleted: 0,
+          done: 0
         }
       });
       
