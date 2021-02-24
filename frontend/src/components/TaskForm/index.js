@@ -21,8 +21,7 @@ function TaskForm(){
     event.preventDefault();
 
     if(editItem){
-      const { id, title, description } = editItem;
-      editTask(id, title, description);
+      editTask(editItem.id, title, description);
     } else {
       addTask(title, description);
     }

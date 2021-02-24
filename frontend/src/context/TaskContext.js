@@ -57,6 +57,16 @@ const TaskContextProvider = (props) => {
     setEditItem(null);
   }
 
+  const doneTask = async (id) => {
+    try {
+      await api.put('/' + id, { done: true });
+      const newTasks = tasks.filter(task => task.id !== id);
+      setTasks(newTasks);
+    } catch (error) {
+      console.log('Ocorreu um erro ao finalizar a tarefa ' + error);
+    }
+  }
+
   const clearList = () => {
     setTasks([]);
   }
@@ -70,7 +80,8 @@ const TaskContextProvider = (props) => {
         removeTask,
         findItem,
         editItem,
-        editTask
+        editTask,
+        doneTask
       }} 
     >
       {props.children}
